@@ -1,0 +1,48 @@
+# app/controllers/tweets_controller.rb
+class TweetsController < ApplicationController
+  before_action :set_tweet, only: [:update, :destroy]
+
+  # Action to display all tweets on the index page
+  def index
+    @tweets = Tweet.all
+    @tweet = Tweet.new
+  end
+
+  # Action to create a new tweet
+  def create
+    @tweet = Tweet.new(tweet_params)
+
+    if @tweet.save
+      render json: @tweet
+    else
+      render json: { errors: @tweet.errors.full_messages }, status: :unprocessable_entity
+    end
+  end
+
+  # Action to update an existing tweet
+  def update
+    if @tweet.update(tweet_params)
+      render json: @tweet
+    else
+      render json: { errors: @tweet.errors.full_messages }, status: :unprocessable_entity
+    end
+  end
+
+  # Action to delete a tweet
+  def destroy
+    @tweet.destroy
+    head :no_content
+  end
+
+  private
+
+  # Before action to set the tweet based on the ID parameter
+  def set_tweet
+    @tweet = Tweet.find(params[:id])
+  end
+
+  # Strong parameters to permit only the necessary attributes for tweet creation and update
+  def tweet_params
+    params.require(:tweet).permit(:content)
+  end
+end

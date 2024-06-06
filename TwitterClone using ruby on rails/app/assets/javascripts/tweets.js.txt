@@ -1,0 +1,14 @@
+// app/assets/javascripts/tweets.js
+document.addEventListener('turbolinks:load', function () {
+  const tweetsContainer = document.getElementById('tweets-container');
+
+  tweetsContainer.addEventListener('ajax:success', function (event) {
+    const xhr = event.detail[0];
+    tweetsContainer.innerHTML = xhr.responseText;
+  });
+
+  tweetsContainer.addEventListener('ajax:error', function (event) {
+    const xhr = event.detail[0];
+    console.error(xhr);
+  });
+});

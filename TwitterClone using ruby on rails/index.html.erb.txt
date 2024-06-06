@@ -1,0 +1,9 @@
+<!-- app/views/tweets/index.html.erb -->
+<%= form_with(model: Tweet.new, remote: true) do |form| %>
+  <%= form.text_area :content, placeholder: 'What\'s happening?' %>
+  <%= form.submit 'Tweet' %>
+<% end %>
+
+<div id="tweets-container">
+  <%= render @tweets %>
+</div>

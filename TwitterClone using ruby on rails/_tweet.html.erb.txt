@@ -1,0 +1,6 @@
+<!-- app/views/tweets/_tweet.html.erb -->
+<div class="tweet">
+  <p><%= tweet.content %></p>
+  <%= link_to 'Edit', edit_tweet_path(tweet), remote: true %>
+  <%= link_to 'Delete', tweet, method: :delete, remote: true %>
+</div>
